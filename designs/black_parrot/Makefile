@@ -11,4 +11,4 @@ parse_snl: black_parrot_snl/snl.mf
 	${PYTHON_ENV} ${NAJA_EDIT} -f snl -i black_parrot_snl
 
 clean:
-	-rm black_parrot/*
+	-rm black_parrot_snl/*
