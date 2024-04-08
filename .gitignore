@@ -1,0 +1,13 @@
+*~
+*.log
+*.pyc
+*.snl
+*.mf
+*/*/primitives.v
+*/*/verif.*
+*/*/verilator.gold
+designs/adder/adder_snl.v
+designs/arm_core/arm_core_netlist.v
+designs/arm_core/arm_core_snl_error.v
+designs/arm_core/arm_core_snl.v
+designs/arm_core/*.list
