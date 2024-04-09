@@ -37,6 +37,9 @@ RUN apk add cmake \
     boost-dev onetbb-dev
 WORKDIR /
 RUN git clone https://github.com/najaeda/naja.git
+WORKDIR /naja
+RUN git submodule init
+RUN git submodule update
 WORKDIR /naja/build
 RUN cmake .. -DCMAKE_INSTALL_PREFIX=/naja-install && make -j$(nproc) && make install
 
