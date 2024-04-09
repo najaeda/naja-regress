@@ -11,7 +11,7 @@ RUN apk add --no-cache \
     autoconf automake \
     g++ python3 make \
     flex-dev bison \
-    help2man
+    help2man git
 
 #compile verilator
 RUN wget https://github.com/verilator/verilator/archive/refs/tags/v5.022.tar.gz
