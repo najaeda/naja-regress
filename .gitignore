@@ -1,8 +1,10 @@
 *~
 *.log
 *.pyc
+*.swp
 *.snl
 *.mf
+*.stats
 */*/primitives.v
 */*/verif.*
 */*/verilator.gold
