@@ -35,9 +35,7 @@ RUN apk add cmake \
     capnproto capnproto-dev \
     python3-dev \
     boost-dev onetbb-dev
-COPY / /naja
-RUN rm -rf /naja/build
-RUN rm -rf /naja-install
+git clone https://github.com/najaeda/naja.git
 WORKDIR /naja/build
 RUN cmake .. -DCMAKE_INSTALL_PREFIX=/naja-install && make -j$(nproc) && make install
 
