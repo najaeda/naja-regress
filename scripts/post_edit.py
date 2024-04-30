@@ -1,9 +1,14 @@
+import os
 import logging
 from naja import snl
 from naja.stats import design_stats
 
 def edit():
-  logging.basicConfig(filename='pre_edit.log', filemode='w' ,level=logging.DEBUG)
+  post_edit_base_name = 'post_edit'
+  if os.getenv('POST_EDIT_BASE_NAME') != None:
+    post_edit_base_name = os.getenv('POST_EDIT_BASE_NAME')
+  log_name = post_edit_base_name + '.log'
+  logging.basicConfig(filename=log_name, filemode='w' ,level=logging.DEBUG)
   universe = snl.SNLUniverse.get()
   if universe is None:
     logging.critical('No loaded SNLUniverse')
@@ -16,4 +21,6 @@ def edit():
     logging.info('Found top design ' + str(top))
 
   #clean_buffer_and_constants(top)
-  save_design_stats.save_design_stats(top, 'optimized_design.stats')
+  stats_file_name = post_edit_base_name + '.stats'
+  stats = open(stats_file_name, 'w')
+  design_stats.compute_and_dump_design_stats(top, stats) 

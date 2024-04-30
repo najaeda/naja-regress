@@ -1,6 +1,6 @@
 include ../Makefile.inc
 
-all: parse_snl parse_snl_flat 
+all: jpeg_hier_edited.v jpeg_flat_edited.v
 
 jpeg_snl/snl.mf: jpeg.v
 	export PYTHONPATH=${SET_PYTHONPATH}; \
@@ -10,13 +10,17 @@ jpeg_flat_snl/snl.mf: jpeg_flat.v
 	export PYTHONPATH=${SET_PYTHONPATH}; \
 	${PYTHON_ENV} ${NAJA_EDIT} -f verilog -t snl -i $< -o jpeg_flat_snl -p ${ASAP7_PRIMITIVES}
 
-parse_snl: jpeg_snl/snl.mf
+jpeg_hier_edited.v: jpeg_snl/snl.mf
 	export PYTHONPATH=${SET_PYTHONPATH}; \
-	${PYTHON_ENV} ${NAJA_EDIT} -f snl -i jpeg_snl
+	export PRE_EDIT_BASE_NAME=pre_hier; \
+	export POST_EDIT_BASE_NAME=post_hier; \
+	${PYTHON_ENV} ${NAJA_EDIT} -f snl -t verilog -i jpeg_snl -o jpeg_hier_edited.v -e ${SCRIPTS}/pre_edit.py -a dle -z ${SCRIPTS}/post_edit.py 
 
-parse_snl_flat: jpeg_flat_snl/snl.mf
+jpeg_flat_edited.v: jpeg_flat_snl/snl.mf
 	export PYTHONPATH=${SET_PYTHONPATH}; \
-	${PYTHON_ENV} ${NAJA_EDIT} -f snl -i jpeg_flat_snl
+	export PRE_EDIT_BASE_NAME=pre_flat; \
+	export POST_EDIT_BASE_NAME=post_flat; \
+	${PYTHON_ENV} ${NAJA_EDIT} -f snl -t verilog -i jpeg_flat_snl -o jpeg_flat_edited.v -e ${SCRIPTS}/pre_edit.py -a dle -z ${SCRIPTS}/post_edit.py 
 
 clean:
-	-rm -rf jpeg_snl jpeg_flat_snl 
+	-rm -rf jpeg_snl jpeg_flat_snl *.log *.stats *_edited.v

@@ -10,16 +10,16 @@ PARSE_INPUTS = $(foreach input,$(INPUTS_DIR),-i $(input))
 
 all: parse_snl
 
-megaboom_snl/snl.mf: edit.py $(INPUTS_DIR)
+megaboom_snl/snl.mf: $(INPUTS_DIR)
 	export PYTHONPATH=${SET_PYTHONPATH}; \
-	${PYTHON_ENV} ${NAJA_EDIT} -f verilog -t snl $(PARSE_INPUTS) -o megaboom_snl -p ${ASAP7_PRIMITIVES} -e $<
+	${PYTHON_ENV} ${NAJA_EDIT} -f verilog -t snl $(PARSE_INPUTS) -o megaboom_snl -p ${ASAP7_PRIMITIVES}
 
-parse_snl: edit.py megaboom_snl/snl.mf
+parse_snl: megaboom_snl/snl.mf
 	export PYTHONPATH=${SET_PYTHONPATH}; \
-	${PYTHON_ENV} ${NAJA_EDIT} -f snl -i megaboom_snl -a dle -e $<
+	${PYTHON_ENV} ${NAJA_EDIT} -f snl -i megaboom_snl -a dle -e ${SCRIPTS}/pre_edit.py -z ${SCRIPTS}/post_edit.py
 
 clean:
 	-rm -rf megaboom_snl
 	-rm -rf __pycache__
-	-rm design.stats
+	-rm *.stats
 
