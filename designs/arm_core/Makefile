@@ -22,9 +22,9 @@ verilator.gold: arm_core_snl.v primitives.v
 arm_core_netlist.v: src/arm_core.v
 	${YOSYS} src/synth.ys
 
-arm_core_snl/snl.mf: ${SCRIPTS}/design_stats.py arm_core_netlist.v
+arm_core_snl/snl.mf: arm_core_netlist.v
 	export PYTHONPATH=${SET_PYTHONPATH}; \
-	${PYTHON_ENV} ${NAJA_EDIT} -f verilog -t snl -i arm_core_netlist.v -o arm_core_snl -p ${PRIMITIVES} -e $<
+	${PYTHON_ENV} ${NAJA_EDIT} -f verilog -t snl -i arm_core_netlist.v -o arm_core_snl -p ${PRIMITIVES} -e ${SCRIPTS}/pre_edit.py
 
 edges.list: arm_core_snl/snl.mf gen_edge_list.py
 	export PYTHONPATH=${SET_PYTHONPATH}; \
