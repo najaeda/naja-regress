@@ -4,11 +4,11 @@ all: jpeg_hier_edited.v jpeg_flat_edited.v
 
 jpeg_snl/snl.mf: jpeg.v
 	export PYTHONPATH=${SET_PYTHONPATH}; \
-	${PYTHON_ENV} ${NAJA_EDIT} -f verilog -t snl -i $< -o jpeg_snl -p ${ASAP7_PRIMITIVES}
+	${PYTHON_ENV} ${NAJA_EDIT} -f verilog -t snl -i $< -o jpeg_snl -p ${PRIMITIVES}/asap7.py
 
 jpeg_flat_snl/snl.mf: jpeg_flat.v
 	export PYTHONPATH=${SET_PYTHONPATH}; \
-	${PYTHON_ENV} ${NAJA_EDIT} -f verilog -t snl -i $< -o jpeg_flat_snl -p ${ASAP7_PRIMITIVES}
+	${PYTHON_ENV} ${NAJA_EDIT} -f verilog -t snl -i $< -o jpeg_flat_snl -p ${PRIMITIVES}/asap7.py
 
 jpeg_hier_edited.v: jpeg_snl/snl.mf
 	export PYTHONPATH=${SET_PYTHONPATH}; \
