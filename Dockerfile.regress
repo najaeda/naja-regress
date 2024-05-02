@@ -43,6 +43,7 @@ RUN git submodule update
 WORKDIR /naja/build
 RUN cmake .. -DCMAKE_INSTALL_PREFIX=/naja-install && make -j$(nproc) && make install
 
+COPY designs designs
 WORKDIR /designs
 ENV SET_PYTHONPATH=/naja-install/lib/python
 ENV LD_LIBRARY_PATH=/naja-install/lib
