@@ -4,7 +4,7 @@ all: black_parrot_edited.v black_parrot_snl.v
 
 black_parrot_snl/snl.mf: black_parrot.v
 	export PYTHONPATH=${SET_PYTHONPATH}; \
-	${PYTHON_ENV} ${NAJA_EDIT} -f verilog -t snl -i $< -o black_parrot_snl -p ${NANGATE45_PRIMITIVES}
+	${PYTHON_ENV} ${NAJA_EDIT} -f verilog -t snl -i $< -o black_parrot_snl -p ${PRIMITIVES}/nangate45.py
 
 black_parrot_snl.v: black_parrot_snl/snl.mf
 	export PYTHONPATH=${SET_PYTHONPATH}; \
