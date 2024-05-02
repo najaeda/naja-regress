@@ -44,6 +44,7 @@ WORKDIR /naja/build
 RUN cmake .. -DCMAKE_INSTALL_PREFIX=/naja-install && make -j$(nproc) && make install
 
 WORKDIR /
+COPY scripts scripts
 COPY designs designs
 WORKDIR /designs
 ENV SET_PYTHONPATH=/naja-install/lib/python
