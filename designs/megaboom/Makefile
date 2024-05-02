@@ -12,7 +12,7 @@ all: parse_snl
 
 megaboom_snl/snl.mf: $(INPUTS_DIR)
 	export PYTHONPATH=${SET_PYTHONPATH}; \
-	${PYTHON_ENV} ${NAJA_EDIT} -f verilog -t snl $(PARSE_INPUTS) -o megaboom_snl -p ${ASAP7_PRIMITIVES}
+	${PYTHON_ENV} ${NAJA_EDIT} -f verilog -t snl $(PARSE_INPUTS) -o megaboom_snl -p ${PRIMITIVES}/asap7.py
 
 parse_snl: megaboom_snl/snl.mf
 	export PYTHONPATH=${SET_PYTHONPATH}; \
