@@ -16,7 +16,7 @@ eqy.gold: arm_core_snl.v primitives.v
 	touch $@
 
 verilator.gold: arm_core_snl.v primitives.v
-	${VERILATOR} --top-module arm_core --lint-only primitives.v arm_core_snl.v
+	${VERILATOR} --top-module arm_core --lint-only -Wno-PINMISSING primitives.v arm_core_snl.v
 	touch $@
 
 arm_core_netlist.v: src/arm_core.v
@@ -24,7 +24,7 @@ arm_core_netlist.v: src/arm_core.v
 
 arm_core_snl/snl.mf: arm_core_netlist.v
 	export PYTHONPATH=${SET_PYTHONPATH}; \
-	${PYTHON_ENV} ${NAJA_EDIT} -f verilog -t snl -i arm_core_netlist.v -o arm_core_snl -p ${PRIMITIVES} -e ${SCRIPTS}/pre_edit.py
+	${PYTHON_ENV} ${NAJA_EDIT} -f verilog -t snl -i $< -o arm_core_snl -p ${PRIMITIVES}
 
 edges.list: arm_core_snl/snl.mf gen_edge_list.py
 	export PYTHONPATH=${SET_PYTHONPATH}; \
