@@ -15,5 +15,7 @@ designs/arm_core/arm_core_snl.v
 designs/arm_core/*.list
 designs/black_parrot/black_parrot_edited.v
 designs/black_parrot/black_parrot_snl.v
-designs/jpeg/jpeg_hier_edited.v
-designs/jpeg/jpeg_flat_edited.v
+designs/jpeg/asap7/jpeg_flat_edited.v
+designs/jpeg/asap7/jpeg_hier_edited.v
+designs/jpeg/nangate45/jpeg_flat_edited.v
+designs/jpeg/nangate45/jpeg_hier_edited.v
