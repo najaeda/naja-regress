@@ -15,7 +15,7 @@ def edit():
     logging.info('Found top design ' + str(top))
 
   primitives = []
-  
+  fanout_file = open('fanout.list','w')
   for inst in top.getInstances():
     path = snl.SNLPath(inst)
     stack = [[inst, path]]
@@ -42,6 +42,7 @@ def edit():
         equi = snl.SNLEquipotential(ito)
         print('Fan out is:')
         print(len(tuple(equi.getInstTermOccurrences())) - 1)
-
+        fanout_file.write(str(ito) + " " + str(len(tuple(equi.getInstTermOccurrences())) - 1))
+        fanout_file.write("\n")
 
 
