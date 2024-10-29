@@ -40,7 +40,7 @@ def edit():
         print('For primitive output:')
         print(ito)
         equi = snl.SNLEquipotential(ito)
-        print('Fan out is:')
+        print('Fanout is:')
         print(len(tuple(equi.getInstTermOccurrences())) - 1)
 
 
