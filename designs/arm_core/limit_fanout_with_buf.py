@@ -87,7 +87,14 @@ def edit():
               continue
            if count == 0:
             readersCountPerContext[str(to.getPath())] = []
-           readersCountPerContext[str(to.getPath())].append([to.getInstTerm().getBitTerm() , str(to.getInstTerm().getInstance().getName() ),to.getPath()])
+            newPath = snl.SNLPath()
+            headModel = top
+            context = []
+            pathIter = to.getPath()
+            while pathIter.size() > 0: 
+              context.append(pathIter.getHeadInstance())
+              pathIter = pathIter.getTailPath()
+           readersCountPerContext[str(to.getPath())].append([to.getInstTerm().getBitTerm() , str(to.getInstTerm().getInstance().getName() ), context])
           #  if len(readersCountPerContext.get(str(to.getPath()), [[]])) > N:
           #      print("found " + str(count))
         for key in readersCountPerContext:
@@ -98,12 +105,16 @@ def edit():
   bufID = 0
   for entry in toLimitWithBuf:
       count = 0
-      if (entry[0][2].size() == 0):
+      if (len(entry[0][2]) == 0):
         #Context is top
         design = top
       else:
-        #Context is deeper than top so need to be uniquified
-        uniq = snl.SNLUniquifier(entry[0][2])
+        newPath = snl.SNLPath()
+        model = top
+        for inst in entry[0][2]:
+          newPath = snl.SNLPath(newPath, model.getInstance(inst.getName()))
+          model = model.getInstance(inst.getName()).getModel()
+        uniq = snl.SNLUniquifier(newPath)
         instances = uniq.getPathUniqCollection()
         instancesList = [ins for ins in instances]
         lastInstance = instancesList[len(instancesList) - 1]
@@ -115,6 +126,7 @@ def edit():
       currentBuffer.getInstTerm(i0).setNet(net)
       netBuff = snl.SNLScalarNet.create(design, "net_buffer_" + str(bufID))
       currentBuffer.getInstTerm(o0).setNet(net)
+      
       for term in entry:
           if count > N:
               count = 0
