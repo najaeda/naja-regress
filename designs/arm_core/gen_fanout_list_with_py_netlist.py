@@ -20,10 +20,11 @@ def edit():
 
   # Collect and dump all driver fanouts
   fanout_file = open('fanoutNaja.list','w')
+
   for entry in primitives:
     # Iterate over instance's terms
     for term in entry.getOutputInstTerms():
-      fanout_file.write(term.getString() + " " + str(len(term.getEuiqpotential().getAllLeafReaders())))
+      fanout_file.write(term.getString() + " " + str(term.getFlatFanout()))
       fanout_file.write("\n")
 
 edit()
