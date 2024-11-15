@@ -15,19 +15,15 @@ def edit():
   loader.loadVerilog(desingFiles)
   loader.verify()
 
+  # Get all primitives instances 
+  primitives = netlist.getAllPrimitiveInstances()
+
   # Collect and dump all driver fanouts
   fanout_file = open('fanoutNaja.list','w')
-  primitives = netlist.getAllPrimitivesInstances()
   for entry in primitives:
-    getInstTerms = entry.getInstTerms()
-    for term in getInstTerms:
-      if term.isOutput():
-        equi = term.getEuiqpotential()
-        primitiveCount = 0
-        for equiTerm in equi.getInstTerms():
-          if equiTerm.getInstance().isPrimitive() and equiTerm.isOutput() == False:
-            primitiveCount = primitiveCount + 1
-        fanout_file.write(equiTerm.getString() + " " + str(primitiveCount))
-        fanout_file.write("\n")
+    # Iterate over instance's terms
+    for term in entry.getOutputInstTerms():
+      fanout_file.write(term.getString() + " " + str(len(term.getEuiqpotential().getAllLeafReaders())))
+      fanout_file.write("\n")
 
 edit()
