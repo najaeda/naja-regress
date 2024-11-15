@@ -2,8 +2,8 @@ import logging
 from naja import snl
 import codecs
 import faulthandler 
-from xilinx import constructPrimitives
-import netlist
+from xilinx import constructPrimitives # from naja/install/share/primitives/xilinx.py
+import netlist # from naja/src/python/netlist/netlist.py
 
 def edit():
   faulthandler.enable()
